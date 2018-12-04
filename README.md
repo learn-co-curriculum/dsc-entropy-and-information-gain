@@ -7,10 +7,9 @@ Information gain as we discussed earlier is calculated using a statistical measu
 
 You will be able to:
 
-- Understand and Explain Shannon's Entropy and Information Gain measures. 
-- Calculate Entropy and Information gain by hand for a simple dataset. 
-- Identify the process for selecting best attribute for a split. 
-
+- Understand and explain Shannon's Entropy and Information Gain measures 
+- Calculate Entropy and Information gain by hand for a simple dataset
+- Identify the process for selecting best attribute for a split
 
 ## Shannon's Entropy
 
