@@ -4,6 +4,9 @@
 ## Introduction
 Information gain as we discussed earlier is calculated using a statistical measure called the __Entropy__. Entropy is a widely used concept used in fields of Physics, mathematics, computer science (information theory) etc. You may come across the idea of entropy in thermodynamics, societal dynamics and a number of other domains. In electronics and computer sciences, the idea of entropy is usually derived from __Shannon's__ description of entropy to measure the information gain against some cost incurred in the process. In this lesson, we shall look at how this works with the simple example we introduced in previous lesson. 
 ## Objectives
+
+You will be able to:
+
 - Understand and Explain Shannon's Entropy and Information Gain measures. 
 - Calculate Entropy and Information gain by hand for a simple dataset. 
 - Identify the process for selecting best attribute for a split. 
