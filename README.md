@@ -15,7 +15,7 @@ You will be able to:
 
 > __Entropy is a measure of Disorder or Uncertainty.__
 
-The measure is Named after *Claude Shannon*, who is known as the "father of information theory". Information theory provides measures of the uncertainty associated with a random variables. These measures help calculate the average information content one is missing when one does not know the value of the random variable. This uncertainty is measures in bits bits, i.e.  the amount of information (in bits) contained per average instance of an instance in a stream of instances.
+The measure is Named after *Claude Shannon*, who is known as the "father of information theory". Information theory provides measures of the uncertainty associated with a random variables. These measures help calculate the average information content one is missing when one does not know the value of the random variable. This uncertainty is measures in bits, i.e.  the amount of information (in bits) contained per average instance of an instance in a stream of instances.
 
 Conceptually, information can be thought of as being stored in or transmitted as variables that can take on different values. A variable can be thought of as a unit of storage that can take on, at different times, one of several different specified values, following some process for taking on those values. Informally, we get information from a variable by looking at its value, just as we get information from an email by reading its contents. In the case of the variable, the information is about the process behind the variable.
 
@@ -43,7 +43,7 @@ We know the target variable since we are using a supervised approach having a tr
 
 <img src="split.png" width=500>
 
-We can see that the split has not __FULLY__ classified the data above, but the resulting data is __tidier__ than it was before the split. Using a series of such splits using different feature variables, we try to clean up the data as much as possible in the leaf nodes. At each step, we want to decrease the entropy, so __entropy is computed before after the split__. If it decreases, the split is retained and we can proceed to the next step, otherwise, we must try to split with another feature or stop this branch (or quit, calling it best solution).
+We can see that the split has not __FULLY__ classified the data above, but the resulting data is __tidier__ than it was before the split. Using a series of such splits using different feature variables, we try to clean up the data as much as possible in the leaf nodes. At each step, we want to decrease the entropy, so __entropy is computed before and after the split__. If it decreases, the split is retained and we can proceed to the next step, otherwise, we must try to split with another feature or stop this branch (or quit, calling it best solution).
 
 
 
