@@ -2,7 +2,8 @@
 # Entropy and Information Gain 
 
 ## Introduction
-Information gain as we discussed earlier is calculated using a statistical measure called the __Entropy__. Entropy is a widely used concept used in fields of Physics, mathematics, computer science (information theory) etc. You may come across the idea of entropy in thermodynamics, societal dynamics and a number of other domains. In electronics and computer sciences, the idea of entropy is usually derived from __Shannon's__ description of entropy to measure the information gain against some cost incurred in the process. In this lesson, we shall look at how this works with the simple example we introduced in previous lesson. 
+**_Information gain_** is calculated using a statistical measure called the **_Entropy_**. Entropy is a widely used concept used in fields of Physics, mathematics, computer science (information theory) etc. You may come across the idea of entropy in thermodynamics, societal dynamics and a number of other domains. In electronics and computer sciences, the idea of entropy is usually derived from __Shannon's__ description of entropy to measure the information gain against some cost incurred in the process. In this lesson, we shall look at how this works with the simple example we introduced in previous lesson. 
+
 ## Objectives
 
 You will be able to:
@@ -27,13 +28,7 @@ For example, if an email is simply a repeat of an earlier email, then it is not 
 
 > Shannon’s entropy quantifies the amount of information in a variable, thus providing the foundation for a theory around the notion of information.
 
-<img src="content.jpg" width=500>
-
-In terms of data, we can informally describe entropy as:
-> Entropy is an indicator of how messy your data is.
-
-A high entropy always reflects "messed-up" data with low/no information content. The uncertainty about content of the data, before viewing the data remains same (or almost same) as that before the data was available. 
-
+In terms of data, we can informally describe entropy as an indicator of how messy your data is.  A high degree of entropy always reflects "messed-up" data with low/no information content. The uncertainty about content of the data, before viewing the data remains same (or almost same) as that before the data was available. In a nutshell, higher entropy means less predictive power when it comes to doing data science with that data. 
 
 ## Entropy and Decision Trees
 
@@ -41,7 +36,7 @@ A high entropy always reflects "messed-up" data with low/no information content.
 
 We know the target variable since we are using a supervised approach having a training set. So we maximize the **Purity** of the classes __as much as possible__ while making the splits, aiming to have a __clarity__ in the leaf nodes. Remember, it may not be possible to remove the uncertainty totally i.e. to fully clean up the data. Have a look at the image below:
 
-<img src="split.png" width=500>
+<img src="images/split.png" width=500>
 
 We can see that the split has not __FULLY__ classified the data above, but the resulting data is __tidier__ than it was before the split. Using a series of such splits using different feature variables, we try to clean up the data as much as possible in the leaf nodes. At each step, we want to decrease the entropy, so __entropy is computed before and after the split__. If it decreases, the split is retained and we can proceed to the next step, otherwise, we must try to split with another feature or stop this branch (or quit, calling it best solution).
 
@@ -49,40 +44,44 @@ We can see that the split has not __FULLY__ classified the data above, but the r
 
 ###  Calculating Entropy
 
-if we have a sample containing $N$ items falling into two categories, $n$ observations having a target=1 and $m=N-n$ observations will have a target label 2. 
+Let's pretend we have a sample $S$. This sample contains $N$ total items falling into two different categories, `True` and `False`.  Of the $N$ total items we have, $n$ observations have a target value equal to $True$, and $m$ observations will have a target value of $False$. Note that if we know $N$ and $n$, then we know $m$. Note that we can easily calculate $m$, because it's just $m = N - n$.
 
-So what we want to do is group these observations according to the target class they belong to. We can write 
-down the ratio of each class as:
-
+Let's assume our boss brings us the dataset $S$, and asks us to group each observation in $N$ according to whether their target value is True or False.  They also want to know the ratio of Trues to Falses in our dataset. We can easily calculate this as follows: 
 
 $$p = n/N - (class 1)$$ $$q = m/N = 1-p - (class 2)$$
 
 Based on this , the entropy of the complete dataset, before the split is calculated as:
 
+If we know these ratios, we can calculate the _entropy_ of the dataset $S$. This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of "True"'s, with some occasional "False"'s slipping through. The more Falses in with the Trues (or Trues in with the Falses!), the more disorganized our dataset is. We can calcuate entropy using the following equation:
+
 $$E = -p . log_2(p) - q . log_2(q)$$
 
-Above equation tells us that according to entropy law, a dataset is considered tidy if it only contains one class (i.e. no uncertainty or confusion). If there is a mix of classes in the target variable , the entropy (or uncertainty about data) goes high. Looking at the entropy function below, when $p=0$ , i.e. no observations for class 1, OR , if all data belongs to class 1 so that $p=1$, the entropy will become zero. It will be MAXIMUM when there is an equal mix of classes 1 and 2 observations i.e. $p=0.5$ tells us that we are equally uncertain about both classes. Think about a fair coin. Before the coin toss, your uncertainty is is at max because any side can come up. The entropy , hence, is maximum.  
-<img src="ent.png" width=400>
+Don't worry too much about this equation yet--we'll dig deeper into what it means in a minute. 
 
-When we start with a messy set with entropy 1 (p=q). In the worst case, it could be split into 2 messy sets where half of the items are labeled 1 and the other half have Label 2 in each set. Hence the entropy of each of the two resulting sets is 1. In this scenario, the uncertainty has not changed and we would have the same entropy before and after the split. We can not just sum the entropies of the two sets. A solution, often used in mathematics, is to compute the mean entropy of the two sets. 
+Above equation tells us that according to entropy law, a dataset is considered tidy if it only contains one class (i.e. no uncertainty or confusion). If the dataset contains a mix of classes for our target variable, the entropy goes higher. This is easier to understand when we visualize it. Consider the following graph of entropy in a dataset that has 2 classes for our target variable:
+<img src="images/ent.png" width=400>
 
-In this case, the mean is one. However, in decision trees, a weighted sum of entropies is computed instead (weighted by the size of the two subsets):
+As you can see, when the split between the target classes is as 0.5, the entropy value is at its maximum, 1. Conversely, when the porportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing without, you can know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you--maximum entropy, and perfect chaos!
 
-$$Entropy_{split} = (n1/N).E1 + (n2/N).E2$$
-
-where n1 and n2 are the number of items of each sets after the split and E1 and E2 are their respective entropy. It gives more importance to the set which is larger (if any). 
-> The idea behind weighted average is that the larger class requires more efforts to tidy. 
+This is where we the logic behind Decision Trees comes in--what if we would could split the contents of our sock drawer into different subsets, which might divide the drawer into more organized subsets? For instance, let's assume that we've built a laundry robot that can separate items of clothing by color. If a majority of our socks are white, and a majority of our underwear is some other color, then we can safely assume that the two subsets will have better separation between socks and underwear, even if the original chaotic drawer had a 50/50 mix of the two!
 
 ### Generalization of Entropy 
 
+Now that we have a good real-world example to cling to, let's get back to thinking about the mathematical definition of entropy. 
+
+Entropy $H(S)$ is a measure of the amount of uncertainty in the dataset $S$. We can see this as a measurement or characterization of the amount of information contained within the dataset $S$.
+
+$$\large H(S) = -\sum (P_i . log_2(P_i))$$
+
 So above we saw how to calculate entropy for a two class variable. In reality, we deal with multiclass problems very often , so it would be a good idea to see a general representation of above formula. 
-![](entg.jpeg)
+
+When  $H(S) = 0$, this means that the set $S$ is perfectly classified, meaning that there is no disorganization in our data because all of our data in S is the exact same class. If we know how much entropy exists in a in a subset (and remember, we can subset our data by just splitting it into 2 or more groups according to whatever metric we choose), then we can easily calculate how much **_Information Gain_** each potential split would give us!
 
 ## Information Gain 
 
 > __Information gain is an impurity/uncertainty based criterion that uses the entropy as the impurity measure.__ 
 
-Information gain is the key criterion that is used by ID3 classification tree algorithm to construct a Decision Tree. Decision Trees algorithm will always tries to __maximize Information gain__. Entropy of dataset is calculated using each attribute, and the attribute showing highest information gain is used to create the split at each node. A simple understanding of information gain can be written as:
+There are several different algorithms out there for creating Decision Trees. Of those, the ID3 algorithm is one of the most popular. Information gain is the key criterion that is used by ID3 classification tree algorithm to construct a Decision Tree. Decision Trees algorithm will always tries to __maximize Information gain__. Entropy of dataset is calculated using each attribute, and the attribute showing highest information gain is used to create the split at each node. A simple understanding of information gain can be written as:
 
 $$Information~Gain  = Entropy_{parent} - Entropy_{child}.[child ~weighted ~average]$$
 
@@ -91,61 +90,55 @@ A weighted average based on number of samples in each class is multiplied to chi
 
 ![](IG.jpeg)
 
+When we measure Information Gain, we're really measuring the difference in entropy from before the split (an untidy sock drawer) to after the split (a group of white socks and underwear, and a group of non-white socks and underwear). Information Gain allows us to put a number to exactly how much we've reduced our _uncertainty_ after splitting a dataset $S$ on some attribute, $A$.  The equation for Information Gain is:
+
+$$\large IG(A, S) = H(S) - \sum{}{p(t)H(t)}  $$
+
+Where:
+
+* $H(S)$ is the entropy of set $S$
+* $t$ is a subset of the attributes contained in $A$ (we represent all subsets $t$ as $T$)
+* $p(t)$ is the proportion of the number of elements in $t$ to the number of elements in $S$
+* $H(t)$ is the entropy of a given subset $t$ 
+
+In the ID3 algorithm, we use entropy to calculate Information Gain, and then pick the attribute with the largest possible Information Gain to split our data on at each iteration. 
+
 ## Entropy and Information Gain Example
 
-Right, we've seen quite a bit of maths so far, let's bring back our small dataset from previous lesson and see how can compute entropy and create splits for the tree. Quick refresher, the dataset contains historic data of weather a person plays tennis or not, given some conditions weather outlook, temperature, humidity and wind. 
+So far, we've focused heavily on the math behind Entropy and Information Gain. This usually makes the calculations look scarier than they actually are. To show that calculating Entropy/Information Gain is actually pretty simple, let's take a look at an example problem--predicting if we want to play tennis or not, based on the weather, temperature, humidity, and windiness of a given day!
 
-![](data.jpeg)
+Our dataset is as follows:
+
+|  outlook | temp | humidity | windy | play |
+|:--------:|:----:|:--------:|:-----:|:----:|
+| overcast | cool |   high   |   Y   |  yes |
+| overcast | mild |  normal  |   N   |  yes |
+|   sunny  | cool |  normal  |   N   |  yes |
+| overcast |  hot |   high   |   Y   |  no  |
+|   sunny  |  hot |  normal  |   Y   |  yes |
+|   rain   | mild |   high   |   N   |  no  |
+|   rain   | cool |  normal  |   N   |  no  |
+|   sunny  | mild |   high   |   N   |  yes |
+|   sunny  | cool |  normal  |   Y   |  yes |
+|   sunny  | mild |  normal  |   Y   |  yes |
+| overcast | cool |   high   |   N   |  yes |
+|   rain   | cool |   high   |   Y   |  no  |
+|   sunny  |  hot |  normal  |   Y   |  no  |
+|   sunny  | mild |   high   |   N   |  yes |
 
 Let's apply the formulas we saw earlier to this problem. 
 
-### Step 1 : Compute Entropy for Weather Dataset
-![](ex1.jpeg)
+$$\LARGE  H(S) = \sum{}{-p(c) log_2 p(c)}$$
+$$\large C={\{yes, no\}}$$
 
-### Step 2: Calculate Entropy and Information Gain for all attributes
+Out of 14 instances, 8 are classified as yes, and 6 as no. So:
 
-Let's see how the split will effect the tree shape based on two of the attributes outlook and windy. The images on the left reflect the resulting split. 
+$$\large  p(yes) = -(9/14)log_2(9/14) = 0.28$$
+$$\large  p(no) = -(5/14)log_2(5/14) = 0.37$$
+$$\large  H(S) = p(yes) + p(no) = 0.65$$
 
-<img src = "calc.jpeg" width=1000>
-
-This shows us the entropy and IG calculation for two attributes: outlook and wind. We can see that outlook gives a higher information gain than windy. On the left, we can also see data becoming tidier as a result of splitting at outlook. 
-__Task: Try calculating Entropy and IG for remaining two attributes__.
-
-Let's see the what the final picture will look like:
-
-<img src="igfinal.jpg" width=500>
-
-So the outlook attribute gives highest information gain, and hence will be used for splitting at the root node. 
-
-<img src="split.jpeg" width=500>
-
-We can see when its overcast, we have all examples with target "yes" i.e. we always go an play tennis in this weather. Our confusion is gone, the uncertainty has come down and this leads to a leaf node (doesnt need further splitting). However, when its sunny or rainy weather, there is still uncertainty as we still have a mix of positive and negative examples (a mix of yes and no). So we need to repeat the process above and create further splits at these nodes. 
-
-As we proceed, our tree will keep getting deeper, until all classes are separated in leaf nodes i.e. we will have leaf nodes wit only positive OR negative examples. 
-
-<img src="split2.jpeg" width=1000>
-
-For the next split, humidity gives us higher entropy value as shown above and successfully separates both classes, leading to "pure leaves". And so the process goes on until we get a tree that looks like the one below:
-
-![](final.jpeg)
-
-So choosing the windy attribute for thrird splits allows all leaf nodes to be pure. And now we can reflect this as a set of if else statements. 
-
-- If outlook is sunny and humidity is high , then play = no
-- If outlook is rainy and its windy as well, then play = no
-- in all other circumstances , play = yes. 
-
-So you see we have derived a working model for a decision tree from our simple dataset. Next we shall implement this calculation in python to get the same tree. 
-
-## Additional Resources
-
-The idea of entropy and information gain could be a bit mind boggling to start off with. As we briefly discussed , this has its roots in information theory , instead of frequesntist/bayesian probability OR linear algebra etc as we saw with our previous architectures. It is imperative that we have a sound understanding of how a certain classifiers performs. Do visit following resources and read more on this. 
-
-* https://arxiv.org/pdf/1405.2061.pdf - Understanding Shannon's Entropy 
-* https://medium.com/coinmonks/what-is-entropy-and-why-information-gain-is-matter-4e85d46d2f01 - Another worked example for calculating entropy and IG.
-
-![](joke.jpg)
+The current entropy of our dataset is 0.65. In the next lesson, we'll see how we can improve this by subsetting our dataset into different groups by calculating the entropy/information gain of each possible split, and then picking the one that performs best, until we have a fully fleshed-out Decision Tree!
 
 ## Summary 
 
-In this lesson, we looked at calculating Entropy and INformation Gain measures for building decision trees. We looked at a simple example and saw how to use these measures to select best split at each node. Next, we shall try to calculate the same in Python, before digging deeper into decision trees. 
+In this lesson, we looked at calculating Entropy and Information Gain measures for building decision trees. We looked at a simple example and saw how to use these measures to select best split at each node. Next, we calculate them in Python, before digging deeper into decision trees. 
