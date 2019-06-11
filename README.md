@@ -36,7 +36,7 @@ In terms of data, we can informally describe entropy as an indicator of how mess
 
 We know the target variable since we are using a supervised approach having a training set. So we maximize the **Purity** of the classes __as much as possible__ while making the splits, aiming to have a __clarity__ in the leaf nodes. Remember, it may not be possible to remove the uncertainty totally i.e. to fully clean up the data. Have a look at the image below:
 
-<img src="images/split.png" width=500>
+<img src="images/split_fs.png" width="300">
 
 We can see that the split has not __FULLY__ classified the data above, but the resulting data is __tidier__ than it was before the split. Using a series of such splits using different feature variables, we try to clean up the data as much as possible in the leaf nodes. At each step, we want to decrease the entropy, so __entropy is computed before and after the split__. If it decreases, the split is retained and we can proceed to the next step, otherwise, we must try to split with another feature or stop this branch (or quit, calling it best solution).
 
@@ -59,9 +59,10 @@ $$E = -p . log_2(p) - q . log_2(q)$$
 Don't worry too much about this equation yet--we'll dig deeper into what it means in a minute. 
 
 Above equation tells us that according to entropy law, a dataset is considered tidy if it only contains one class (i.e. no uncertainty or confusion). If the dataset contains a mix of classes for our target variable, the entropy goes higher. This is easier to understand when we visualize it. Consider the following graph of entropy in a dataset that has 2 classes for our target variable:
-<img src="images/ent.png" width=400>
 
-As you can see, when the split between the target classes is as 0.5, the entropy value is at its maximum, 1. Conversely, when the porportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing without, you can know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you--maximum entropy, and perfect chaos!
+<img src="images/entropy_fs.png" width="500">
+
+As you can see, when the split between the target classes is as 0.5, the entropy value is at its maximum, 1. Conversely, when the proportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing without, you can know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you--maximum entropy, and perfect chaos!
 
 This is where we the logic behind Decision Trees comes in--what if we would could split the contents of our sock drawer into different subsets, which might divide the drawer into more organized subsets? For instance, let's assume that we've built a laundry robot that can separate items of clothing by color. If a majority of our socks are white, and a majority of our underwear is some other color, then we can safely assume that the two subsets will have better separation between socks and underwear, even if the original chaotic drawer had a 50/50 mix of the two!
 
@@ -128,7 +129,8 @@ Our dataset is as follows:
 
 Let's apply the formulas we saw earlier to this problem. 
 
-$$\LARGE  H(S) = \sum{}{-p(c) log_2 p(c)}$$
+$$\Large  H(S) = \sum{}{-p(c) log_2 p(c)}$$
+
 $$\large C={\{yes, no\}}$$
 
 Out of 14 instances, 8 are classified as yes, and 6 as no. So:
