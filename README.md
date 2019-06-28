@@ -50,7 +50,6 @@ Let's assume our boss brings us the dataset $S$, and asks us to group each obser
 
 $$p = n/N - (class 1)$$ $$q = m/N = 1-p - (class 2)$$
 
-Based on this , the entropy of the complete dataset, before the split is calculated as:
 
 If we know these ratios, we can calculate the _entropy_ of the dataset $S$. This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of "True"'s, with some occasional "False"'s slipping through. The more Falses in with the Trues (or Trues in with the Falses!), the more disorganized our dataset is. We can calcuate entropy using the following equation:
 
@@ -133,7 +132,7 @@ $$\Large  H(S) = \sum{}{-p(c) log_2 p(c)}$$
 
 $$\large C={\{yes, no\}}$$
 
-Out of 14 instances, 8 are classified as yes, and 6 as no. So:
+Out of 14 instances, 9 are classified as yes, and 5 as no. So:
 
 $$\large  p(yes) = -(9/14)log_2(9/14) = 0.28$$
 $$\large  p(no) = -(5/14)log_2(5/14) = 0.37$$
