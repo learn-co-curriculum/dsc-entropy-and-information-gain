@@ -2,18 +2,16 @@
 # Entropy and Information Gain 
 
 ## Introduction
+
 **_Information gain_** is calculated using a statistical measure called **_Entropy_**. Entropy is a widely used concept in the fields of Physics, Mathematics, Computer Science (information theory), and more. You may have come across the idea of entropy in thermodynamics, societal dynamics, and a number of other domains. In electronics and computer science, the idea of entropy is usually derived from __Shannon's__ description of entropy to measure the information gain against some cost incurred in the process. In this lesson, we shall look at how this works with the simple example we introduced in the previous lesson. 
 
 ## Objectives
 
 You will be able to:
 
-
 - Explain the process for selecting the best attribute for a split 
 - Calculate entropy and information gain by hand for a simple dataset 
 - Compare and contrast entropy and information gain 
-
-
 
 ## Shannon's Entropy
 
@@ -49,16 +47,20 @@ We can see that the split has not __FULLY__ classified the data above, but the r
 
 ###  Calculating entropy
 
-Let's pretend we have a sample, $S$. This sample contains $N$ total items falling into two different categories, `True` and `False`. Of the $N$ total items we have, $n$ observations have a target value equal to $True$, and $m$ observations have a target value equal to $False$. Note that if we know $N$ and $n$, we can easily calculate $m$ to be $m = N - n$.
+Let's pretend we have a sample,  <img src="https://render.githubusercontent.com/render/math?math=S"> . This sample contains  <img src="https://render.githubusercontent.com/render/math?math=N"> total items falling into two different categories, `True` and `False`. Of the  <img src="https://render.githubusercontent.com/render/math?math=N"> total items we have,  <img src="https://render.githubusercontent.com/render/math?math=n"> observations have a target value equal to `True` , and  <img src="https://render.githubusercontent.com/render/math?math=m"> observations have a target value equal to `False`. Note that if we know  <img src="https://render.githubusercontent.com/render/math?math=N"> and  <img src="https://render.githubusercontent.com/render/math?math=n"> , we can easily calculate  <img src="https://render.githubusercontent.com/render/math?math=m"> to be  <img src="https://render.githubusercontent.com/render/math?math=m = N - n"> .
 
-Let's assume our boss brings us the dataset $S$, and asks us to group each observation in $N$ according to whether their target value is True or False. They also want to know the ratio of Trues to Falses in our dataset. We can calculate this as follows: 
+Let's assume our boss brings us the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> , and asks us to group each observation in  <img src="https://render.githubusercontent.com/render/math?math=N"> according to whether their target value is `True` or `False`. They also want to know the ratio of Trues to Falses in our dataset. We can calculate this as follows: 
 
-$$p = n/N - (class 1)$$ $$q = m/N = 1-p - (class 2)$$
+<img src="https://render.githubusercontent.com/render/math?math=p = n/N - (class 1)">  
+<br> 
+<img src="https://render.githubusercontent.com/render/math?math=q = m/N = 1-p - (class 2)"> 
 
 
-If we know these ratios, we can calculate the _entropy_ of the dataset $S$. This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of "True"'s, with some occasional "False"'s slipping through. The more Falses in with the Trues (or Trues in with the Falses!), the more disorganized our dataset is. We can calculate entropy using the following equation:
+If we know these ratios, we can calculate the _entropy_ of the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> . This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of `True`s, with some occasional `False`s slipping through. The more Falses in with the Trues (or Trues in with the Falses!), the more disorganized our dataset is. 
 
-$$E = -p . log_2(p) - q . log_2(q)$$
+We can calculate entropy using the following equation:
+
+ <img src="https://render.githubusercontent.com/render/math?math=E = -p . log_2(p) - q . log_2(q)"> 
 
 Don't worry too much about this equation yet -- we'll dig deeper into what it means in a minute. 
 
@@ -66,7 +68,7 @@ The equation above tells us that a dataset is considered tidy if it only contain
 
 <img src="images/new_entropy_fs.png" width="500">
 
-As you can see, when the classes are split equally, $p = 0.5$ and $q = 1 - p = 0.5$, the entropy value is at its maximum, 1. Conversely, when the proportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing, you know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you -- maximum entropy, and perfect chaos!
+As you can see, when the classes are split equally,  <img src="https://render.githubusercontent.com/render/math?math=p = 0.5"> and  <img src="https://render.githubusercontent.com/render/math?math=q = 1 - p = 0.5"> , the entropy value is at its maximum, 1. Conversely, when the proportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing, you know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you -- maximum entropy, and perfect chaos!
 
 This is where the logic behind decision trees comes in -- what if we could split the contents of our sock drawer into different subsets, which might divide the drawer into more organized subsets? For instance, let's assume that we've built a laundry robot that can separate items of clothing by color. If a majority of our socks are white, and a majority of our underwear is some other color, then we can safely assume that the two subsets will have a better separation between socks and underwear, even if the original chaotic drawer had a 50/50 mix of the two!
 
@@ -74,14 +76,14 @@ This is where the logic behind decision trees comes in -- what if we could split
 
 Now that we have a good real-world example to cling to, let's get back to thinking about the mathematical definition of entropy. 
 
-Entropy $H(S)$ is a measure of the amount of uncertainty in the dataset $S$. We can see this is a measurement or characterization of the amount of information contained within the dataset $S$.
+Entropy  <img src="https://render.githubusercontent.com/render/math?math=H(S)"> is a measure of the amount of uncertainty in the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> . We can see this is a measurement or characterization of the amount of information contained within the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> .
 
 We saw how to calculate entropy for a two-class variable before. However, in the real world we deal with multiclass problems very often, so it would be a good idea to see a general representation of the formula we saw before. The general representation is: 
 
-$$\large H(S) = -\sum (P_i . log_2(P_i))$$
+ <img src="https://render.githubusercontent.com/render/math?math=\large H(S) = -\sum (P_i . log_2(P_i))"> 
 
 
-When  $H(S) = 0$, this means that the set $S$ is perfectly classified, meaning that there is no disorganization in our data because all of our data in S is the exact same class. If we know how much entropy exists in a subset (and remember, we can subset our data by just splitting it into 2 or more groups according to whatever metric we choose), then we can easily calculate how much **_information gain_** each potential split would give us!
+When   <img src="https://render.githubusercontent.com/render/math?math=H(S) = 0"> , this means that the set  <img src="https://render.githubusercontent.com/render/math?math=S"> is perfectly classified, meaning that there is no disorganization in our data because all of our data in S is the exact same class. If we know how much entropy exists in a subset (and remember, we can subset our data by just splitting it into 2 or more groups according to whatever metric we choose), then we can easily calculate how much **_information gain_** each potential split would give us!
 
 ## Information gain 
 
@@ -89,23 +91,23 @@ When  $H(S) = 0$, this means that the set $S$ is perfectly classified, meaning t
 
 There are several different algorithms out there for creating decision trees. Of those, the ID3 algorithm is one of the most popular. Information gain is the key criterion that is used by the ID3 classification tree algorithm to construct a decision tree. The decision tree algorithm will always try to __maximize information gain__. The entropy of the dataset is calculated using each attribute, and the attribute showing highest information gain is used to create the split at each node. A simple understanding of information gain can be written as:
 
-$$Information~Gain  = Entropy_{parent} - Entropy_{child}.[child ~weighted ~average]$$
+ <img src="https://render.githubusercontent.com/render/math?math=\text{Information Gain} = \text{Entropy}_{\text{parent}} - \text{Entropy}_{\text{child}}.[\text{child weighted average}]"> 
 
 
-A weighted average based on the number of samples in each class is multiplied by the child's entropy, since most datasets have class imbalance. Thus the information gain calculation for each attribute is calculated and compared, and the attribute showing the highest information gain will be selected for the split. Below is a more generalized form of the equation: 
+A weighted average based on the number of samples in each class is multiplied by the child's entropy, since most datasets have class imbalance. Thus the information gain calculation for each attribute is calculated and compared, and the attribute showing the highest information gain will be selected for the split. 
 
-![](IG.jpeg)
+When we measure information gain, we're really measuring the difference in entropy from before the split (an untidy sock drawer) to after the split (a group of white socks and underwear, and a group of non-white socks and underwear). Information gain allows us to put a number to exactly how much we've reduced our _uncertainty_ after splitting a dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> on some attribute, <img src="https://render.githubusercontent.com/render/math?math=A">. 
 
-When we measure information gain, we're really measuring the difference in entropy from before the split (an untidy sock drawer) to after the split (a group of white socks and underwear, and a group of non-white socks and underwear). Information gain allows us to put a number to exactly how much we've reduced our _uncertainty_ after splitting a dataset $S$ on some attribute, $A$.  The equation for information gain is:
+The equation for information gain is:
 
-$$\large IG(A, S) = H(S) - \sum{}{p(t)H(t)}  $$
+ <img src="https://render.githubusercontent.com/render/math?math=\large IG(A, S) = H(S) - \sum{}{p(t)H(t)}  "> 
 
 Where:
 
-* $H(S)$ is the entropy of set $S$
-* $t$ is a subset of the attributes contained in $A$ (we represent all subsets $t$ as $T$)
-* $p(t)$ is the proportion of the number of elements in $t$ to the number of elements in $S$
-* $H(t)$ is the entropy of a given subset $t$ 
+*  <img src="https://render.githubusercontent.com/render/math?math=H(S)"> is the entropy of set  <img src="https://render.githubusercontent.com/render/math?math=S"> 
+*  <img src="https://render.githubusercontent.com/render/math?math=t"> is a subset of the attributes contained in  <img src="https://render.githubusercontent.com/render/math?math=A"> (we represent all subsets  <img src="https://render.githubusercontent.com/render/math?math=t"> as  <img src="https://render.githubusercontent.com/render/math?math=T"> )
+*  <img src="https://render.githubusercontent.com/render/math?math=p(t)"> is the proportion of the number of elements in  <img src="https://render.githubusercontent.com/render/math?math=t"> to the number of elements in  <img src="https://render.githubusercontent.com/render/math?math=S"> 
+*  <img src="https://render.githubusercontent.com/render/math?math=H(t)"> is the entropy of a given subset  <img src="https://render.githubusercontent.com/render/math?math=t"> 
 
 In the ID3 algorithm, we use entropy to calculate information gain, and then pick the attribute with the largest possible information gain to split our data on at each iteration. 
 
@@ -135,23 +137,20 @@ Our dataset is as follows:
 
 Let's apply the formulas we saw earlier to this problem:  
 
-$$\Large  H(S) = \sum{}{-p(c) log_2 p(c)}$$
-
-$$\large C={\{yes, no\}}$$
+<img src="https://render.githubusercontent.com/render/math?math=H(S) = \sum{}{-p(C) log_2 p(C)}"> 
+<br>
+<img src="https://render.githubusercontent.com/render/math?math=C={\{yes, no\}}"> 
 
 Out of 14 instances, 9 are classified as yes, and 5 as no. So:
 
-$$\large  p(yes) = -(9/14)log_2(9/14) = 0.28$$
-$$\large  p(no) = -(5/14)log_2(5/14) = 0.37$$
-$$\large  H(S) = p(yes) + p(no) = 0.65$$
+<img src="https://render.githubusercontent.com/render/math?math=p(yes) = -(9/14)log_2(9/14) = 0.28">
+<br>
+<img src="https://render.githubusercontent.com/render/math?math=p(no) = -(5/14)log_2(5/14) = 0.37"> 
+<br>
+<img src="https://render.githubusercontent.com/render/math?math=H(S) = p(yes) %2b p(no) = 0.65"> 
 
 The current entropy of our dataset is 0.65. In the next lesson, we'll see how we can improve this by subsetting our dataset into different groups by calculating the entropy/information gain of each possible split, and then picking the one that performs best until we have a fully fleshed-out decision tree!
 
 ## Summary 
 
 In this lesson, we looked at calculating entropy and information gain measures for building decision trees. We looked at a simple example and saw how to use these measures to select the best split at each node. Next, we calculate these measures in Python, before digging deeper into decision trees. 
-
-
-```python
-
-```
