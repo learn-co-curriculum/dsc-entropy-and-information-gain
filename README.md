@@ -49,14 +49,14 @@ We can see that the split has not __FULLY__ classified the data above, but the r
 
 Let's pretend we have a sample,  <img src="https://render.githubusercontent.com/render/math?math=S"> . This sample contains  <img src="https://render.githubusercontent.com/render/math?math=N"> total items falling into two different categories, `True` and `False`. Of the  <img src="https://render.githubusercontent.com/render/math?math=N"> total items we have,  <img src="https://render.githubusercontent.com/render/math?math=n"> observations have a target value equal to `True` , and  <img src="https://render.githubusercontent.com/render/math?math=m"> observations have a target value equal to `False`. Note that if we know  <img src="https://render.githubusercontent.com/render/math?math=N"> and  <img src="https://render.githubusercontent.com/render/math?math=n"> , we can easily calculate  <img src="https://render.githubusercontent.com/render/math?math=m"> to be  <img src="https://render.githubusercontent.com/render/math?math=m = N - n"> .
 
-Let's assume our boss brings us the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> , and asks us to group each observation in  <img src="https://render.githubusercontent.com/render/math?math=N"> according to whether their target value is `True` or `False`. They also want to know the ratio of Trues to Falses in our dataset. We can calculate this as follows: 
+Let's assume our boss brings us the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> , and asks us to group each observation in  <img src="https://render.githubusercontent.com/render/math?math=N"> according to whether their target value is `True` or `False`. They also want to know the ratio of `True`s to `False`s in our dataset. We can calculate this as follows: 
 
 <img src="https://render.githubusercontent.com/render/math?math=p = n/N - (class 1)">  
 <br> 
 <img src="https://render.githubusercontent.com/render/math?math=q = m/N = 1-p - (class 2)"> 
 
 
-If we know these ratios, we can calculate the _entropy_ of the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> . This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of `True`s, with some occasional `False`s slipping through. The more Falses in with the Trues (or Trues in with the Falses!), the more disorganized our dataset is. 
+If we know these ratios, we can calculate the _entropy_ of the dataset  <img src="https://render.githubusercontent.com/render/math?math=S"> . This will provide us with an easy way to see how organized or disorganized our dataset is. For instance, let's assume that our boss believes that the dataset should mostly be full of `True`s, with some occasional `False`s slipping through. The more `False`s in with the `True`s (or `True`s in with the `False`s!), the more disorganized our dataset is. 
 
 We can calculate entropy using the following equation:
 
