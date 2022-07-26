@@ -1,4 +1,3 @@
-
 # Entropy and Information Gain 
 
 ## Introduction
@@ -41,7 +40,7 @@ In a nutshell, higher entropy means less predictive power when it comes to doing
 
 Because decision trees use a supervised learning approach, we know the target variable of our data. So, we maximize the **purity** of the classes __as much as possible__ while making splits, aiming to have __clarity__ in the leaf nodes. Remember, it may not be possible to remove the uncertainty totally, i.e., to fully clean up the data. Have a look at the image below:
 
-<img src="images/split_fs.png" width="300">
+<img src="https://raw.githubusercontent.com/learn-co-curriculum/dsc-entropy-and-information-gain/master/images/split_fs.png" alt="initial dataset with a decision split that reduces entropy" width="300">
 
 We can see that the split has not __FULLY__ classified the data above, but the resulting data is __tidier__ than it was before the split. By using a series of such splits that focus on different features, we try to clean up the data as much as possible in the leaf nodes. At each step, we want to decrease the entropy, so __entropy is computed before and after the split__. If it decreases, the split is retained and we can proceed to the next step, otherwise, we must try to split with another feature or stop this branch (or quit, in which case we claim that the current tree is the best solution).
 
@@ -64,7 +63,7 @@ Don't worry too much about this equation yet -- we'll dig deeper into what it me
 
 The equation above tells us that a dataset is considered tidy if it only contains one class (i.e. no uncertainty or confusion). If the dataset contains a mix of classes for our target variable, the entropy increases. This is easier to understand when we visualize it. Consider the following graph of entropy in a dataset that has two classes for our target variable:
 
-<img src="images/new_entropy_fs.png" width="500">
+<img src="https://raw.githubusercontent.com/learn-co-curriculum/dsc-entropy-and-information-gain/master/images/new_entropy_fs.png" alt="parabola that shows the proportion of class p on the x-axis and entropy on the y-axis. the parabola peaks at 0.5" width="500">
 
 As you can see, when the classes are split equally, $p = 0.5$ and $q = 1 - p = 0.5$, the entropy value is at its maximum, 1. Conversely, when the proportion of the split is at 0 (all of one target class) or at 1 (all of the other target class), the entropy value is 0! This means that we can easily think of entropy as follows: the more one-sided the proportion of target classes, the less entropy. Think of a sock drawer that may or may not have some underwear mixed in. If the sock drawer contains only socks (or only underwear), then entropy is 0. If you reach in and pull out an article of clothing, you know exactly what you're going to get. However, if 10% of the items in that sock drawer are actually underwear, you are less certain what that random draw will give you. That uncertainty increases as more and more underwear gets mixed into that sock drawer, right up until there is the exact same amount of socks and underwear in the drawer. When the proportion is exactly equal, you have no way of knowing item of clothing a random draw might give you -- maximum entropy, and perfect chaos!
 
@@ -93,8 +92,6 @@ $$Information~Gain  = Entropy_{parent} - Entropy_{child}.[child ~weighted ~avera
 
 
 A weighted average based on the number of samples in each class is multiplied by the child's entropy, since most datasets have class imbalance. Thus the information gain calculation for each attribute is calculated and compared, and the attribute showing the highest information gain will be selected for the split. Below is a more generalized form of the equation: 
-
-![](IG.jpeg)
 
 When we measure information gain, we're really measuring the difference in entropy from before the split (an untidy sock drawer) to after the split (a group of white socks and underwear, and a group of non-white socks and underwear). Information gain allows us to put a number to exactly how much we've reduced our _uncertainty_ after splitting a dataset $S$ on some attribute, $A$.  The equation for information gain is:
 
@@ -150,8 +147,3 @@ The current entropy of our dataset is 0.65. In the next lesson, we'll see how we
 ## Summary 
 
 In this lesson, we looked at calculating entropy and information gain measures for building decision trees. We looked at a simple example and saw how to use these measures to select the best split at each node. Next, we calculate these measures in Python, before digging deeper into decision trees. 
-
-
-```python
-
-```
