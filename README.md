@@ -138,11 +138,11 @@ $$\large C={\{yes, no\}}$$
 
 Out of 14 instances, 9 are classified as yes, and 5 as no. So:
 
-$$\large  p(yes) = -(9/14)log_2(9/14) = 0.28$$
-$$\large  p(no) = -(5/14)log_2(5/14) = 0.37$$
-$$\large  H(S) = p(yes) + p(no) = 0.65$$
+$$\large  p(yes) = -(9/14)log_2(9/14) = 0.41$$
+$$\large  p(no) = -(5/14)log_2(5/14) = 0.53$$
+$$\large  H(S) = p(yes) + p(no) = 0.94$$
 
-The current entropy of our dataset is 0.65. In the next lesson, we'll see how we can improve this by subsetting our dataset into different groups by calculating the entropy/information gain of each possible split, and then picking the one that performs best until we have a fully fleshed-out decision tree!
+The current entropy of our dataset is 0.94. In the next lesson, we'll see how we can improve this by subsetting our dataset into different groups by calculating the entropy/information gain of each possible split, and then picking the one that performs best until we have a fully fleshed-out decision tree!
 
 ## Summary 
 
